@@ -6,13 +6,13 @@ const FULL_HEART = '♥'
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  const likeButton = document.querySelectorAll(".like");
+  const likeButtons = document.querySelectorAll(".like");
   const modal = document.querySelector("modal");
   const modalMessage = document.querySelector("modal-message");
   
-  likeButton.forEach(function(Button){
-    Button.addEventListener("click", function() {
-      const hearts = document.querySelector(".like-glyph");
+  likeButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const hearts = button.querySelector(".like-glyph");
       if (hearts.textContent === EMPTY_HEART) {
         mimicServerCall()
         .then(function (response) {
@@ -21,20 +21,19 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(function (error) {
           modalMessage.textContent = error;
-          modal.classList.remove("hidden");
-        });
+          modal.classList.remove(".hidden");
+        
         setTimeout(function () {
           modal.classList.add("hidden");
         }, 3000);
-      }if (hearts.textContent === FULL_HEART) {
+       });
+      } else if (hearts.textContent === FULL_HEART) {
         hearts.textContent = EMPTY_HEART;
         hearts.classList.remove("activated-heart");
       }
     })
   })
 });
-
-
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
